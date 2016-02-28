@@ -1,0 +1,577 @@
+In [1]: import cv2
+
+In [4]: img=cv2.imread('1.JPG')
+
+In [5]: img
+Out[5]: 
+array([[[255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        ..., 
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255]],
+
+       [[255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        ..., 
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255]],
+       [[255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        ..., 
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255]],
+       ..., 
+       [[255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        ..., 
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255]],
+       [[255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        ..., 
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255]],
+       [[255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255],
+        ..., 
+        [255, 255, 255],
+        [255, 255, 255],
+        [255, 255, 255]]], dtype=uint8)
+In [6]: 
+
+In [7]: type(img)
+Out[7]: numpy.ndarray
+In [8]: 
+
+In [8]: img.shape
+Out[8]: (74, 110, 3)
+
+gray=cv2.imread('1.JPG',cv2.IMREAD_GRAYSCALE)
+
+In [9]: gray=cv2.imread('1.JPG',cv2.IMREAD_GRAYSCALE)
+
+In [10]: gray.shape
+Out[10]: (74, 110)
+
+ cv2.imwrite('gray1.jpg',gray)
+
+ In [11]:  cv2.imwrite('gray1.jpg',gray)
+Out[11]: True
+
+In [12]: help(cv2.threshold)
+Help on built-in function threshold in module cv2:
+threshold(...)
+    threshold(src, thresh, maxval, type[, dst]) -> retval, dst
+(END)
+
+op=cv2.threshold(gray,128,255,cv2.THRESH_BINARY)
+
+In [13]: op=cv2.threshold(gray,128,255,cv2.THRESH_BINARY)
+In [14]: 
+In [14]: op
+Out[14]: 
+(128.0, array([[255, 255, 255, ..., 255, 255, 255],
+        [255, 255, 255, ..., 255, 255, 255],
+        [255, 255, 255, ..., 255, 255, 255],
+        ..., 
+        [255, 255, 255, ..., 255, 255, 255],
+        [255, 255, 255, ..., 255, 255, 255],
+        [255, 255, 255, ..., 255, 255, 255]], dtype=uint8))
+
+===========
+
+In [15]: bw=op[1]
+In [16]: bw
+Out[16]: 
+array([[255, 255, 255, ..., 255, 255, 255],
+       [255, 255, 255, ..., 255, 255, 255],
+       [255, 255, 255, ..., 255, 255, 255],
+       ..., 
+       [255, 255, 255, ..., 255, 255, 255],
+       [255, 255, 255, ..., 255, 255, 255],
+       [255, 255, 255, ..., 255, 255, 255]], dtype=uint8)
+=====
+
+
+In [19]: cv2.imwrite('bw1.jpg',bw)
+Out[19]: True
+
+op=cv2.threshold(gray,128,255,cv2.THRESH_BINARY_INV)
+
+In [20]: op=cv2.threshold(gray,128,255,cv2.THRESH_BINARY_INV)
+In [21]: op
+Out[21]: 
+(128.0, array([[0, 0, 0, ..., 0, 0, 0],
+        [0, 0, 0, ..., 0, 0, 0],
+        [0, 0, 0, ..., 0, 0, 0],
+        ..., 
+        [0, 0, 0, ..., 0, 0, 0],
+        [0, 0, 0, ..., 0, 0, 0],
+        [0, 0, 0, ..., 0, 0, 0]], dtype=uint8))
+		
+========]
+
+bw2=op[1]		
+
+In [24]: bw2=op[1]
+In [25]: bw2
+Out[25]: 
+array([[0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       ..., 
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0]], dtype=uint8)
+=========
+
+cv2.imwrite('bw2.jpg',bw2)
+		
+In [26]: cv2.imwrite('bw2.jpg',bw2)
+Out[26]: True
+
+========		
+
+In [28]: %cpaste
+Pasting code; enter '--' alone on the line to stop or use Ctrl-D.
+:vhist=[]
+:(rows,cols)=gray.shape
+:for c in range(cols):
+:    count=0
+:    for r in range(rows):
+:        count+=bw2[r,c]
+:    print("reading coln",c)
+:    count=count//255
+:    print("count is",count)
+:    vhist.append(count)
+:print(vhist)
+:<EOF>
+('reading coln', 0)
+('count is', 0)
+('reading coln', 1)
+('count is', 0)
+('reading coln', 2)
+('count is', 0)
+('reading coln', 3)
+('count is', 0)
+('reading coln', 4)
+('count is', 0)
+('reading coln', 5)
+('count is', 0)
+('reading coln', 6)
+('count is', 0)
+('reading coln', 7)
+('count is', 0)
+('reading coln', 8)
+('count is', 0)
+('reading coln', 9)
+('count is', 0)
+('reading coln', 10)
+('count is', 0)
+('reading coln', 11)
+('count is', 3)
+('reading coln', 12)
+('count is', 6)
+('reading coln', 13)
+('count is', 8)
+('reading coln', 14)
+('count is', 10)
+('reading coln', 15)
+('count is', 12)
+('reading coln', 16)
+('count is', 14)
+('reading coln', 17)
+('count is', 16)
+('reading coln', 18)
+('count is', 16)
+('reading coln', 19)
+('count is', 15)
+('reading coln', 20)
+('count is', 14)
+('reading coln', 21)
+('count is', 13)
+('reading coln', 22)
+('count is', 11)
+('reading coln', 23)
+('count is', 11)
+('reading coln', 24)
+('count is', 10)
+('reading coln', 25)
+('count is', 9)
+('reading coln', 26)
+('count is', 9)
+('reading coln', 27)
+('count is', 9)
+('reading coln', 28)
+('count is', 10)
+('reading coln', 29)
+('count is', 12)
+('reading coln', 30)
+('count is', 21)
+('reading coln', 31)
+('count is', 26)
+('reading coln', 32)
+('count is', 28)
+('reading coln', 33)
+('count is', 32)
+('reading coln', 34)
+('count is', 42)
+('reading coln', 35)
+('count is', 47)
+('reading coln', 36)
+('count is', 47)
+('reading coln', 37)
+('count is', 48)
+('reading coln', 38)
+('count is', 47)
+('reading coln', 39)
+('count is', 47)
+('reading coln', 40)
+('count is', 48)
+('reading coln', 41)
+('count is', 46)
+('reading coln', 42)
+('count is', 44)
+('reading coln', 43)
+('count is', 29)
+('reading coln', 44)
+('count is', 28)
+('reading coln', 45)
+('count is', 26)
+('reading coln', 46)
+('count is', 23)
+('reading coln', 47)
+('count is', 21)
+('reading coln', 48)
+('count is', 18)
+('reading coln', 49)
+('count is', 14)
+('reading coln', 50)
+('count is', 7)
+('reading coln', 51)
+('count is', 0)
+('reading coln', 52)
+('count is', 0)
+('reading coln', 53)
+('count is', 0)
+('reading coln', 54)
+('count is', 7)
+('reading coln', 55)
+('count is', 16)
+('reading coln', 56)
+('count is', 23)
+('reading coln', 57)
+('count is', 28)
+('reading coln', 58)
+('count is', 32)
+('reading coln', 59)
+('count is', 37)
+('reading coln', 60)
+('count is', 39)
+('reading coln', 61)
+('count is', 38)
+('reading coln', 62)
+('count is', 38)
+('reading coln', 63)
+('count is', 29)
+('reading coln', 64)
+('count is', 24)
+('reading coln', 65)
+('count is', 19)
+('reading coln', 66)
+('count is', 14)
+('reading coln', 67)
+('count is', 11)
+('reading coln', 68)
+('count is', 8)
+('reading coln', 69)
+('count is', 8)
+('reading coln', 70)
+('count is', 8)
+('reading coln', 71)
+('count is', 8)
+('reading coln', 72)
+('count is', 0)
+('reading coln', 73)
+('count is', 0)
+('reading coln', 74)
+('count is', 0)
+('reading coln', 75)
+('count is', 0)
+('reading coln', 76)
+('count is', 0)
+('reading coln', 77)
+('count is', 27)
+('reading coln', 78)
+('count is', 34)
+('reading coln', 79)
+('count is', 39)
+('reading coln', 80)
+('count is', 42)
+('reading coln', 81)
+('count is', 45)
+('reading coln', 82)
+('count is', 48)
+('reading coln', 83)
+('count is', 50)
+('reading coln', 84)
+('count is', 52)
+('reading coln', 85)
+('count is', 29)
+('reading coln', 86)
+('count is', 20)
+('reading coln', 87)
+('count is', 15)
+('reading coln', 88)
+('count is', 11)
+('reading coln', 89)
+('count is', 8)
+('reading coln', 90)
+('count is', 5)
+('reading coln', 91)
+('count is', 2)
+('reading coln', 92)
+('count is', 0)
+('reading coln', 93)
+('count is', 0)
+('reading coln', 94)
+('count is', 0)
+('reading coln', 95)
+('count is', 0)
+('reading coln', 96)
+('count is', 0)
+('reading coln', 97)
+('count is', 0)
+('reading coln', 98)
+('count is', 0)
+('reading coln', 99)
+('count is', 0)
+('reading coln', 100)
+('count is', 0)
+('reading coln', 101)
+('count is', 0)
+('reading coln', 102)
+('count is', 0)
+('reading coln', 103)
+('count is', 0)
+('reading coln', 104)
+('count is', 0)
+('reading coln', 105)
+('count is', 0)
+('reading coln', 106)
+('count is', 0)
+('reading coln', 107)
+('count is', 0)
+('reading coln', 108)
+('count is', 0)
+('reading coln', 109)
+('count is', 0)
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 6, 8, 10, 12, 14, 16, 16, 15, 14, 13, 11, 11, 10, 9, 9, 9, 10, 12, 21, 26, 28, 32, 42, 47, 47, 48, 47, 47, 48, 46, 44, 29, 28, 26, 23, 21
+, 18, 14, 7, 0, 0, 0, 7, 16, 23, 28, 32, 37, 39, 38, 38, 29, 24, 19, 14, 11, 8, 8, 8, 8, 0, 0, 0, 0, 0, 27, 34, 39, 42, 45, 48, 50, 52, 29, 20, 15, 11, 8, 5, 2, 0, 0, 0, 0, 0
+, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+In [29]: 
+
+In [29]: rows
+Out[29]: 74
+
+In [30]: cols
+Out[30]: 110
+
+In [31]: vhist
+Out[31]: 
+[0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 3,
+ 6,
+ 8,
+ 10,
+ 12,
+ 14,
+ 16,
+ 16,
+ 15,
+ 14,
+ 13,
+ 11,
+ 11,
+ 10,
+ 9,
+ 9,
+ 9,
+ 10,
+ 12,
+ 21,
+ 26,
+ 28,
+ 32,
+ 42,
+ 47,
+ 47,
+ 48,
+ 47,
+ 47,
+ 48,
+ 46,
+ 44,
+ 29,
+ 28,
+ 26,
+ 23,
+ 21,
+ 18,
+ 14,
+ 7,
+ 0,
+ 0,
+ 0,
+ 7,
+ 16,
+ 23,
+ 28,
+ 32,
+ 37,
+ 39,
+ 38,
+ 38,
+ 29,
+ 24,
+ 19,
+ 14,
+ 11,
+ 8,
+ 8,
+ 8,
+ 8,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 27,
+ 34,
+ 39,
+ 42,
+ 45,
+ 48,
+ 50,
+ 52,
+ 29,
+ 20,
+ 15,
+ 11,
+ 8,
+ 5,
+ 2,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0]
+In [32]: 
+
+In [32]: import matplotlib.pyplot as plt
+In [33]: plt.plot(vhist)
+Out[33]: [<matplotlib.lines.Line2D at 0x7ff7c6114a90>]
+In [34]: plt.ylabel('histogram data')
+Out[34]: <matplotlib.text.Text at 0x7ff7c6412810>
+In [35]: plt.savefig('vhist1.jpg')
+
+In [51]: %cpaste
+Pasting code; enter '--' alone on the line to stop or use Ctrl-D.
+:pts=[]
+:for i in range(len(vhist)-1):
+:    if vhist[i] == 0 and vhist[i+1] != 0:
+:        print('start found:',i+1)
+:        pts.append(i+1)
+:    elif vhist[i] != 0 and vhist[i+1] == 0:
+:        print('stop found',i)
+:        pts.append(i)
+:        
+:print(pts)        
+:<EOF>
+('start found:', 11)
+('stop found', 50)
+('start found:', 54)
+('stop found', 71)
+('start found:', 77)
+('stop found', 91)
+[11, 50, 54, 71, 77, 91]
+In [52]: 
+
+In [52]: pts
+Out[52]: [11, 50, 54, 71, 77, 91]
+
+
+In [56]: %cpaste
+Pasting code; enter '--' alone on the line to stop or use Ctrl-D.
+:def drawlines(image,points,thick):
+:    for point in points:
+:        cv2.line(image,(point,0),(point,rows),(255,0,200),thick)
+:    cv2.imwrite('lined_image.jpg',image)
+:
+:<EOF>
+
+In [62]: drawlines(img,pts,1)
+
+
+In [69]: %cpaste
+Pasting code; enter '--' alone on the line to stop or use Ctrl-D.
+:def segment(image,list):
+:    count=1
+:    while(list):
+:        print('list is',list)
+:        start=list.pop(0)
+:        stop=list.pop(0)
+:        crop_img = image[0:rows,start:stop]
+:        title='cropped_'+str(count)+'.jpg'
+:        cv2.imwrite(title, crop_img)
+:        count+=1
+:    
+:<EOF>
+In [70]: segment(img,pts)
+In [71]: pts
+Out[71]: []
+In [72]: pts=[11, 50, 54, 71, 77, 91]
+In [73]: segment(img,pts)
+('list is', [11, 50, 54, 71, 77, 91])
+('list is', [54, 71, 77, 91])
+('list is', [77, 91])
+In [74]: 
+
+==============END=============================
+
+
+sharing ipython console with alok.singh@fitkids.co.in
