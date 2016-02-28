@@ -1,2 +1,2 @@
 # lecun_cv_paper
-Try for some opencv.
+Time for some opencv.
